@@ -28,11 +28,11 @@ jobs:
 
     - name: Build docker image
       run: |
-        docker build guiarango/docker-graphql:0.0.2 .
+        docker build -t guiarango/docker-graphql:0.0.2 .
 
     - name: Push Docker image
       run: |
-       docker push guiarango/docker-graphql:0.0.2 .
+       docker push guiarango/docker-graphql:0.0.2
     
     # - name: Build the Docker image
     #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
