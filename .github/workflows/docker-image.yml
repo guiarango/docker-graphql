@@ -34,19 +34,22 @@ jobs:
       run: |
         echo "Iniciando login"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-        echo "NEW VERSION: $NEW_VERSION!!!"
         echo "Fin del login"
 
 
-    # - name: Build docker image
-    #   run: |
-    #     docker build -t guiarango/docker-graphql:0.0.2 .
-    #     docker build -t guiarango/docker-graphql:latest .
+    - name: Build docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+        docker build -t guiarango/docker-graphql:$NEW_VERSION .
+        docker build -t guiarango/docker-graphql:latest .
 
-    # - name: Push Docker image
-    #   run: |
-    #    docker push guiarango/docker-graphql:0.0.2
-    #    docker push guiarango/docker-graphql:latest
+    - name: Push Docker image
+      env:
+        NEW_VERSION: ${{ steps.version.outputs.version }}
+      run: |
+       docker push guiarango/docker-graphql:$NEW_VERSION
+       docker push guiarango/docker-graphql:latest
 
     
     # - name: Build the Docker image
